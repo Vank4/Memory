@@ -1,0 +1,381 @@
+:where([class^="ri-"])::before {
+  content: "\f3c2";
+}
+
+body {
+  font-family: "Dancing Script", cursive;
+  background-color: #fffaf0;
+}
+
+.font-great-vibes {
+  font-family: "Great Vibes", cursive;
+}
+
+.font-dancing-script {
+  font-family: "Dancing Script", cursive;
+}
+
+.font-pacifico {
+  font-family: "Pacifico", cursive;
+}
+
+.heart-counter {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 2s infinite;
+}
+
+.heart-counter:before,
+.heart-counter:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 100px;
+  height: 160px;
+  border-radius: 100px 100px 0 0;
+  background: rgba(220, 20, 60, 0.8);
+}
+
+.heart-counter:before {
+  left: 50px;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.heart-counter:after {
+  left: 50px;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+.counter-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.floating {
+  animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.timeline-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.timeline-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.typewriter {
+  overflow: hidden;
+  border-right: 0.15em solid #dc143c;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: 0.15em;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #dc143c;
+  }
+}
+
+.gift-box {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.gift-box:hover {
+  transform: scale(1.05);
+}
+
+.gift-box-lid {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #dc143c;
+  border-radius: 5px;
+  transform-origin: center bottom;
+  transition: transform 0.5s ease;
+}
+
+.gift-box-container {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  width: 100%;
+  height: 160px;
+  background-color: #ffd1dc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.gift-box-ribbon {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 200px;
+  background-color: #e6e6fa;
+  z-index: 2;
+}
+
+.gift-box-ribbon:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #e6e6fa;
+  border-radius: 50% 50% 0 0;
+}
+
+.gift-box.open .gift-box-lid {
+  transform: rotateX(-110deg);
+}
+
+.gift-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.gift-box.open .gift-content {
+  opacity: 1;
+}
+
+.floating-heart {
+  position: absolute;
+  color: rgba(220, 20, 60, 0.3);
+  animation: float-up 10s linear infinite;
+}
+
+@keyframes float-up {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: #e6e6fa;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #dc143c;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #dc143c;
+  cursor: pointer;
+}
+
+.custom-checkbox {
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #fffaf0;
+  border: 2px solid #dc143c;
+  border-radius: 5px;
+}
+
+.custom-checkbox:hover input ~ .checkmark {
+  background-color: #ffd1dc;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+  background-color: #dc143c;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.custom-checkbox .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e6e6fa;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #dc143c;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+#heartCanvas {
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.heart-background {
+  width: 200px;
+  height: 200px;
+  background-image: url("images/timden.png"); /* đường dẫn ảnh */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* Tuỳ chỉnh vị trí nếu cần */
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

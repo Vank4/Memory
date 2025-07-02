@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our One Year Anniversary</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#FFD1DC", secondary: "#DC143C" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav
+      class="fixed top-0 left-0 w-full bg-white bg-opacity-80 backdrop-blur-sm z-50 shadow-sm"
+    >
+      <div class="container mx-auto px-4 py-3">
+        <div class="flex justify-center items-center">
+          <ul class="flex space-x-8">
+            <li>
+              <a
+                href="#home"
+                class="font-dancing-script text-xl hover:text-secondary transition-colors"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="#days-together"
+                class="font-dancing-script text-xl hover:text-secondary transition-colors"
+                >Days Together</a
+              >
+            </li>
+            <li>
+              <a
+                href="#memories"
+                class="font-dancing-script text-xl hover:text-secondary transition-colors"
+                >Our Memories</a
+              >
+            </li>
+            <li>
+              <a
+                href="#letter"
+                class="font-dancing-script text-xl hover:text-secondary transition-colors"
+                >Love Letter</a
+              >
+            </li>
+            <li>
+              <a
+                href="#surprise"
+                class="font-dancing-script text-xl hover:text-secondary transition-colors"
+                >Surprise</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      id="home"
+      class="relative min-h-screen flex items-center justify-center overflow-hidden"
+      style="
+        background-image: url('https://readdy.ai/api/search-image?query=romantic%20couple%20silhouette%20against%20sunset%2C%20soft%20pink%20and%20purple%20sky%2C%20hearts%20floating%20in%20the%20air%2C%20dreamy%20atmosphere%2C%20anniversary%20celebration%2C%20high%20quality%2C%20detailed%2C%208k%20resolution%2C%20professional%20photography&width=1920&height=1080&seq=1&orientation=landscape');
+        background-size: cover;
+        background-position: center;
+      "
+    >
+      <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+      <div class="container mx-auto px-4 z-10 w-full">
+        <div class="text-center">
+          <h1
+            class="font-great-vibes text-5xl md:text-7xl text-white mb-8 floating"
+          >
+            Một Năm Yêu Thương
+          </h1>
+          <p
+            class="font-dancing-script text-2xl md:text-3xl text-white max-w-3xl mx-auto"
+          >
+            "Một năm trước, anh bước vào cuộc đời em, và từ đó mọi thứ trở nên
+            tuyệt vời hơn. Cảm ơn anh vì đã là tất cả đối với em." 💕
+          </p>
+          <div class="mt-12">
+            <button
+              class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white border-2 border-white py-3 px-8 rounded-button font-dancing-script text-xl transition-all duration-300 backdrop-blur-sm whitespace-nowrap"
+            >
+              Cùng Nhìn Lại Hành Trình Của Chúng Ta
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating Hearts -->
+      <div id="floating-hearts-container"></div>
+    </section>
+
+    <!-- Days Together Counter -->
+    <section id="days-together" class="py-20 bg-black">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="font-great-vibes text-4xl md:text-5xl text-secondary mb-4">
+            Tình Yêu Qua Những Con Số
+          </h2>
+          <p
+            class="font-dancing-script text-xl text-gray-700"
+            style="color: floralwhite"
+          >
+            Mỗi khoảnh khắc bên anh đều là một kho báu
+          </p>
+        </div>
+
+        <div
+          class="flex flex-col md:flex-row items-center justify-center gap-12"
+        >
+          <div class="relative flex items-center justify-center">
+            <div
+              class="relative w-[500px] h-[500px] flex justify-center items-center"
+            >
+              <canvas id="heartCanvas" class="absolute w-full h-full"></canvas>
+              <div class="absolute text-center heart-background">
+                <span
+                  id="days"
+                  class="font-great-vibes text-4xl text-secondary drop-shadow-lg"
+                >
+                  0
+                </span>
+                <p
+                  class="font-dancing-script text-lg text-gray-600 mt-1"
+                  style="color: floralwhite"
+                >
+                  Ngày bên <br />
+                  nhau
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="max-w-md text-center md:text-left">
+            <h3 class="font-great-vibes text-3xl text-secondary mb-4">
+              Một Năm Với Biết Bao Kỷ Niệm Đẹp
+            </h3>
+            <p
+              class="font-dancing-script text-xl text-gray-700 mb-6"
+              style="color: floralwhite"
+            >
+              Từ buổi hẹn đầu tiên vào ngày 1 tháng 7 năm 2024 đến vô vàn cuộc
+              phiêu lưu, những tràng cười và khoảnh khắc quý giá mà chúng ta đã
+              chia sẻ cùng nhau. Mỗi ngày đều là một món quà, và em mong chờ cả
+              cuộc đời phía trước với anh.
+            </p>
+            <div
+              class="flex flex-wrap gap-4 justify-center md:justify-start"
+              style="color: floralwhite"
+            >
+              <div class="bg-primary bg-opacity-20 rounded-lg p-4 text-center">
+                <span class="font-great-vibes text-2xl text-secondary">∞</span>
+                <p class="font-dancing-script">Tình Yêu</p>
+              </div>
+              <div class="bg-primary bg-opacity-20 rounded-lg p-4 text-center">
+                <span
+                  id="weeks"
+                  class="font-great-vibes text-2xl text-secondary"
+                  >0</span
+                >
+                <p class="font-dancing-script">Tuần</p>
+              </div>
+              <div class="bg-primary bg-opacity-20 rounded-lg p-4 text-center">
+                <span
+                  id="months"
+                  class="font-great-vibes text-2xl text-secondary"
+                  >0</span
+                >
+                <p class="font-dancing-script">Tháng</p>
+              </div>
+              <div class="bg-primary bg-opacity-20 rounded-lg p-4 text-center">
+                <span
+                  id="years"
+                  class="font-great-vibes text-2xl text-secondary"
+                  >0</span
+                >
+                <p class="font-dancing-script">Năm</p>
+              </div>
+              <div class="bg-primary bg-opacity-20 rounded-lg p-4 text-center">
+                <span
+                  id="hours"
+                  class="font-great-vibes text-2xl text-secondary"
+                  >0</span
+                >
+                <p class="font-dancing-script">Giờ</p>
+              </div>
+              <div class="bg-primary bg-opacity-20 rounded-lg p-4 text-center">
+                <span
+                  id="minutes"
+                  class="font-great-vibes text-2xl text-secondary"
+                  >0</span
+                >
+                <p class="font-dancing-script">Phút</p>
+              </div>
+              <div class="bg-primary bg-opacity-20 rounded-lg p-4 text-center">
+                <span
+                  id="seconds"
+                  class="font-great-vibes text-2xl text-secondary"
+                  >0</span
+                >
+                <p class="font-dancing-script">Giây</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Memories Timeline -->
+    <section id="memories" class="py-20 bg-primary bg-opacity-10">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="font-great-vibes text-4xl md:text-5xl text-secondary mb-4">
+            Our Beautiful Journey
+          </h2>
+          <p class="font-dancing-script text-xl text-gray-700">
+            A timeline of our most precious moments
+          </p>
+        </div>
+
+        <div class="relative">
+          <!-- Vertical Line -->
+          <div
+            class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-secondary bg-opacity-30"
+          ></div>
+
+          <!-- Timeline Items -->
+          <div class="timeline">
+            <!-- Item 1 -->
+            <div class="timeline-item relative mb-24 flex">
+              <div class="w-1/2 pr-12 md:text-right">
+                <div
+                  class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                >
+                  <h3 class="font-great-vibes text-2xl text-secondary mb-2">
+                    Our First Date
+                  </h3>
+                  <p class="text-gray-500 mb-2">July 1, 2024</p>
+                  <p class="font-dancing-script text-lg text-gray-700 mb-4">
+                    That nervous coffee shop meeting that turned into a 5-hour
+                    conversation. I knew something special was beginning.
+                  </p>
+                  <div class="rounded-lg overflow-hidden">
+                    <img
+                      src="https://readdy.ai/api/search-image?query=romantic%20first%20date%20at%20a%20cozy%20coffee%20shop%2C%20two%20people%20sitting%20across%20from%20each%20other%2C%20warm%20lighting%2C%20coffee%20cups%2C%20intimate%20conversation%2C%20soft%20focus%2C%20romantic%20atmosphere%2C%20high%20quality%2C%20detailed&width=600&height=400&seq=2&orientation=landscape"
+                      alt="First Date"
+                      class="w-full h-64 object-cover object-top hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-secondary flex items-center justify-center z-10"
+              >
+                <i class="ri-heart-fill text-white"></i>
+              </div>
+              <div class="w-1/2"></div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="timeline-item relative mb-24 flex">
+              <div class="w-1/2"></div>
+              <div
+                class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-secondary flex items-center justify-center z-10"
+              >
+                <i class="ri-map-pin-fill text-white"></i>
+              </div>
+              <div class="w-1/2 pl-12">
+                <div
+                  class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                >
+                  <h3 class="font-great-vibes text-2xl text-secondary mb-2">
+                    Our First Trip Together
+                  </h3>
+                  <p class="text-gray-500 mb-2">September 15, 2024</p>
+                  <p class="font-dancing-script text-lg text-gray-700 mb-4">
+                    That weekend getaway to the beach where we watched the
+                    sunset and promised to create many more memories together.
+                  </p>
+                  <div class="rounded-lg overflow-hidden">
+                    <img
+                      src="https://readdy.ai/api/search-image?query=romantic%20couple%20watching%20sunset%20at%20beach%2C%20holding%20hands%2C%20silhouette%2C%20warm%20golden%20light%2C%20ocean%20waves%2C%20romantic%20atmosphere%2C%20high%20quality%2C%20detailed&width=600&height=400&seq=3&orientation=landscape"
+                      alt="First Trip"
+                      class="w-full h-64 object-cover object-top hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="timeline-item relative mb-24 flex">
+              <div class="w-1/2 pr-12 md:text-right">
+                <div
+                  class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                >
+                  <h3 class="font-great-vibes text-2xl text-secondary mb-2">
+                    First "I Love You"
+                  </h3>
+                  <p class="text-gray-500 mb-2">October 31, 2024</p>
+                  <p class="font-dancing-script text-lg text-gray-700 mb-4">
+                    Under the stars at the Halloween party, when you whispered
+                    those three magical words that changed everything.
+                  </p>
+                  <div class="rounded-lg overflow-hidden">
+                    <img
+                      src="https://readdy.ai/api/search-image?query=romantic%20couple%20under%20starry%20night%20sky%2C%20intimate%20moment%2C%20soft%20lighting%2C%20romantic%20atmosphere%2C%20autumn%20evening%2C%20halloween%20decorations%20subtle%20in%20background%2C%20high%20quality%2C%20detailed&width=600&height=400&seq=4&orientation=landscape"
+                      alt="First I Love You"
+                      class="w-full h-64 object-cover object-top hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-secondary flex items-center justify-center z-10"
+              >
+                <i class="ri-chat-heart-fill text-white"></i>
+              </div>
+              <div class="w-1/2"></div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="timeline-item relative mb-24 flex">
+              <div class="w-1/2"></div>
+              <div
+                class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-secondary flex items-center justify-center z-10"
+              >
+                <i class="ri-cake-fill text-white"></i>
+              </div>
+              <div class="w-1/2 pl-12">
+                <div
+                  class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                >
+                  <h3 class="font-great-vibes text-2xl text-secondary mb-2">
+                    Your Birthday Surprise
+                  </h3>
+                  <p class="text-gray-500 mb-2">December 12, 2024</p>
+                  <p class="font-dancing-script text-lg text-gray-700 mb-4">
+                    The look on your face when you walked into the surprise
+                    party I'd been planning for weeks. Worth every second of
+                    preparation.
+                  </p>
+                  <div class="rounded-lg overflow-hidden">
+                    <img
+                      src="https://readdy.ai/api/search-image?query=surprise%20birthday%20party%2C%20romantic%20decorations%2C%20cake%20with%20candles%2C%20happy%20expression%2C%20celebration%2C%20intimate%20gathering%2C%20warm%20lighting%2C%20high%20quality%2C%20detailed&width=600&height=400&seq=5&orientation=landscape"
+                      alt="Birthday Surprise"
+                      class="w-full h-64 object-cover object-top hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="timeline-item relative mb-24 flex">
+              <div class="w-1/2 pr-12 md:text-right">
+                <div
+                  class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                >
+                  <h3 class="font-great-vibes text-2xl text-secondary mb-2">
+                    Our First New Year Together
+                  </h3>
+                  <p class="text-gray-500 mb-2">December 31, 2024</p>
+                  <p class="font-dancing-script text-lg text-gray-700 mb-4">
+                    Counting down to midnight, kissing as the fireworks exploded
+                    overhead, promising to make the new year even more magical.
+                  </p>
+                  <div class="rounded-lg overflow-hidden">
+                    <img
+                      src="https://readdy.ai/api/search-image?query=romantic%20new%20year%20celebration%2C%20couple%20kissing%20at%20midnight%2C%20fireworks%20in%20background%2C%20champagne%20glasses%2C%20festive%20atmosphere%2C%20high%20quality%2C%20detailed&width=600&height=400&seq=6&orientation=landscape"
+                      alt="New Year"
+                      class="w-full h-64 object-cover object-top hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-secondary flex items-center justify-center z-10"
+              >
+                <i class="ri-calendar-fill text-white"></i>
+              </div>
+              <div class="w-1/2"></div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="timeline-item relative flex">
+              <div class="w-1/2"></div>
+              <div
+                class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-secondary flex items-center justify-center z-10"
+              >
+                <i class="ri-gift-fill text-white"></i>
+              </div>
+              <div class="w-1/2 pl-12">
+                <div
+                  class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                >
+                  <h3 class="font-great-vibes text-2xl text-secondary mb-2">
+                    Our First Anniversary
+                  </h3>
+                  <p class="text-gray-500 mb-2">July 1, 2025</p>
+                  <p class="font-dancing-script text-lg text-gray-700 mb-4">
+                    Here we are, one year later, celebrating the most beautiful
+                    journey of my life. Thank you for making every day special.
+                  </p>
+                  <div class="rounded-lg overflow-hidden">
+                    <img
+                      src="https://readdy.ai/api/search-image?query=romantic%20anniversary%20celebration%2C%20couple%20toasting%20with%20wine%20glasses%2C%20candlelit%20dinner%2C%20roses%2C%20intimate%20setting%2C%20elegant%20atmosphere%2C%20high%20quality%2C%20detailed&width=600&height=400&seq=7&orientation=landscape"
+                      alt="Anniversary"
+                      class="w-full h-64 object-cover object-top hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Love Letter Section -->
+    <section id="letter" class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="font-great-vibes text-4xl md:text-5xl text-secondary mb-4">
+            My Love Letter to You
+          </h2>
+          <p class="font-dancing-script text-xl text-gray-700">
+            Words from my heart
+          </p>
+        </div>
+
+        <div class="max-w-3xl mx-auto">
+          <div
+            class="bg-[#FFFAF0] p-8 md:p-12 rounded-lg shadow-md border border-primary border-opacity-30"
+            style="
+              background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUwIj48ZyBmaWxsPSIjRkZEMURDIiBmaWxsLW9wYWNpdHk9IjAuMSI+PHBhdGggZD0iTTI1IDMwYzUuNTIzIDAgMTAtNC40NzcgMTAtMTBzLTQuNDc3LTEwLTEwLTEwLTEwIDQuNDc3LTEwIDEwIDQuNDc3IDEwIDEwIDEwem0wLTJjNC40MTggMCA4LTMuNTgyIDgtOHMtMy41ODItOC04LThTMTcgMTUuNTgyIDE3IDIwczMuNTgyIDggOCA4eiIvPjwvZz48L3N2Zz4=');
+            "
+          >
+            <div class="typewriter-container">
+              <p
+                class="font-dancing-script text-xl text-gray-700 mb-6 typewriter"
+              >
+                My Dearest,
+              </p>
+              <div class="letter-content opacity-0">
+                <p class="font-dancing-script text-xl text-gray-700 mb-6">
+                  As I sit down to write this letter, my heart is overflowing
+                  with emotions that words can barely contain. One year ago
+                  today, our journey together began, and what a beautiful
+                  adventure it has been.
+                </p>
+                <p class="font-dancing-script text-xl text-gray-700 mb-6">
+                  From our first nervous conversation to our comfortable
+                  silences now, every moment with you has been a gift. I've
+                  watched you laugh until tears streamed down your face, I've
+                  held you when you needed strength, and I've fallen more in
+                  love with you each day.
+                </p>
+                <p class="font-dancing-script text-xl text-gray-700 mb-6">
+                  Thank you for your patience when I'm stubborn, your smile that
+                  brightens my darkest days, and your heart that loves so
+                  completely. You've taught me what it means to truly care for
+                  someone, to put their happiness alongside my own.
+                </p>
+                <p class="font-dancing-script text-xl text-gray-700 mb-6">
+                  This first year together has been filled with beautiful
+                  memories that I will cherish forever. I'm excited for all the
+                  adventures that await us, for the challenges we'll overcome
+                  together, and for the love that will continue to grow between
+                  us.
+                </p>
+                <p class="font-dancing-script text-xl text-gray-700 mb-6">
+                  Happy Anniversary, my love. Here's to one year down and a
+                  lifetime to go.
+                </p>
+                <p class="font-dancing-script text-xl text-gray-700 text-right">
+                  Forever Yours,<br />
+                  <span class="font-great-vibes text-2xl text-secondary"
+                    >Me</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 flex justify-center items-center gap-4">
+            <div
+              class="w-8 h-8 flex items-center justify-center rounded-full bg-primary bg-opacity-20"
+            >
+              <i class="ri-volume-up-fill text-secondary"></i>
+            </div>
+            <div class="flex-1">
+              <input
+                type="range"
+                id="volume-control"
+                min="0"
+                max="100"
+                value="50"
+                class="w-full"
+              />
+            </div>
+            <button
+              id="play-music"
+              class="bg-primary hover:bg-opacity-80 text-white py-2 px-4 rounded-button flex items-center gap-2 whitespace-nowrap"
+            >
+              <i class="ri-play-fill"></i>
+              <span>Play Music</span>
+            </button>
+            <audio id="background-music" loop>
+              <source
+                src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+                type="audio/mpeg"
+              />
+            </audio>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Surprise Gift Section -->
+    <section id="surprise" class="py-20 bg-primary bg-opacity-10">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="font-great-vibes text-4xl md:text-5xl text-secondary mb-4">
+            A Special Surprise
+          </h2>
+          <p class="font-dancing-script text-xl text-gray-700">
+            Click to unwrap your gift
+          </p>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <div class="gift-box" id="gift-box">
+            <div class="gift-box-lid"></div>
+            <div class="gift-box-ribbon"></div>
+            <div class="gift-box-container"></div>
+            <div class="gift-content" id="gift-content">
+              <div class="text-center">
+                <h3 class="font-great-vibes text-3xl text-secondary mb-6">
+                  10 Reasons Why I Love You
+                </h3>
+                <ul class="text-left space-y-4 max-w-md mx-auto">
+                  <li
+                    class="font-dancing-script text-xl text-gray-700 opacity-0 transform translate-y-4 transition-all duration-300 ease-out reason-item"
+                  >
+                    <span class="text-secondary font-bold">1.</span> The way
+                    your eyes crinkle when you laugh genuinely
+                  </li>
+                  <li
+                    class="font-dancing-script text-xl text-gray-700 opacity-0 transform translate-y-4 transition-all duration-300 ease-out reason-item"
+                  >
+                    <span class="text-secondary font-bold">2.</span> Your
+                    kindness to everyone you meet, even on your worst days
+                  </li>
+                  <li
+                    class="font-dancing-script text-xl text-gray-700 opacity-0 transform translate-y-4 transition-all duration-300 ease-out reason-item"
+                  >
+                    <span class="text-secondary font-bold">3.</span> How you
+                    always remember the little details about my day
+                  </li>
+                  <li
+                    class="font-dancing-script text-xl text-gray-700 opacity-0 transform translate-y-4 transition-all duration-300 ease-out reason-item"
+                  >
+                    <span class="text-secondary font-bold">4.</span> The way you
+                    make me feel safe and understood
+                  </li>
+                  <li
+                    class="font-dancing-script text-xl text-gray-700 opacity-0 transform translate-y-4 transition-all duration-300 ease-out reason-item"
+                  >
+                    <span class="text-secondary font-bold">5.</span> Your
+                    passion for the things you love
+                  </li>
+                  <li
+                    class="font-dancing-script text-xl text-gray-700 opacity-0 transform translate-y-4 transition-all duration-300 ease-out reason-item"
+                  >
+                    <span class="text-secondary font-bold">6.</span> How you
+                    push me to be a better person
+                  </li>
+                  <li
+                    class="font-dancing-script text-xl text-gray-700 opacity-0 transform translate-y-4 transition-all duration-300 ease-out reason-item"
+                  >
+                    <span class="text-secondary font-bold">7.</span> The way you
+                    dance when you think no one is watching
+                  </li>
+                  <li
+                    class="font-dancing-script text-xl text-gray-700 opacity-0 transform translate-y-4 transition-all duration-300 ease-out reason-item"
+                  >
+                    <span class="text-secondary font-bold">8.</span> Your
+                    strength during difficult times
+                  </li>
+                  <li
+                    class="font-dancing-script text-xl text-gray-700 opacity-0 transform translate-y-4 transition-all duration-300 ease-out reason-item"
+                  >
+                    <span class="text-secondary font-bold">9.</span> How you
+                    always know exactly what to say to make me smile
+                  </li>
+                  <li
+                    class="font-dancing-script text-xl text-gray-700 opacity-0 transform translate-y-4 transition-all duration-300 ease-out reason-item"
+                  >
+                    <span class="text-secondary font-bold">10.</span> The way
+                    you love me completely, just as I am
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-16 max-w-2xl mx-auto">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+              <h3
+                class="font-great-vibes text-3xl text-secondary mb-6 text-center"
+              >
+                Our Next Adventure
+              </h3>
+              <p
+                class="font-dancing-script text-xl text-gray-700 mb-6 text-center"
+              >
+                Let's plan our next special memory together. What would you like
+                to do?
+              </p>
+
+              <div class="space-y-6">
+                <div>
+                  <label class="custom-checkbox font-dancing-script text-xl">
+                    <input
+                      type="checkbox"
+                      name="adventure"
+                      value="weekend-getaway"
+                    />
+                    <span class="checkmark"></span>
+                    A romantic weekend getaway
+                  </label>
+                </div>
+                <div>
+                  <label class="custom-checkbox font-dancing-script text-xl">
+                    <input
+                      type="checkbox"
+                      name="adventure"
+                      value="cooking-class"
+                    />
+                    <span class="checkmark"></span>
+                    Take a cooking class together
+                  </label>
+                </div>
+                <div>
+                  <label class="custom-checkbox font-dancing-script text-xl">
+                    <input
+                      type="checkbox"
+                      name="adventure"
+                      value="stargazing"
+                    />
+                    <span class="checkmark"></span>
+                    Go stargazing at our special spot
+                  </label>
+                </div>
+                <div>
+                  <label class="custom-checkbox font-dancing-script text-xl">
+                    <input
+                      type="checkbox"
+                      name="adventure"
+                      value="photo-session"
+                    />
+                    <span class="checkmark"></span>
+                    Have a professional photo session
+                  </label>
+                </div>
+              </div>
+
+              <div class="mt-8 flex justify-center">
+                <button
+                  class="bg-secondary hover:bg-opacity-80 text-white py-3 px-8 rounded-button font-dancing-script text-xl transition-all duration-300 whitespace-nowrap"
+                >
+                  Submit Your Wishes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-white border-t border-primary border-opacity-20">
+      <div class="container mx-auto px-4">
+        <div class="text-center">
+          <h2 class="font-great-vibes text-3xl text-secondary mb-4">
+            Thank You for an Amazing Year
+          </h2>
+          <p class="font-dancing-script text-xl text-gray-700 mb-8">
+            Here's to many more years of love, laughter, and beautiful memories
+            together.
+          </p>
+
+          <div class="flex justify-center items-center gap-4 mb-8">
+            <div
+              class="w-10 h-10 flex items-center justify-center rounded-full bg-primary bg-opacity-20"
+            >
+              <i class="ri-heart-fill text-secondary"></i>
+            </div>
+            <div
+              class="w-10 h-10 flex items-center justify-center rounded-full bg-primary bg-opacity-20"
+            >
+              <i class="ri-instagram-fill text-secondary"></i>
+            </div>
+            <div
+              class="w-10 h-10 flex items-center justify-center rounded-full bg-primary bg-opacity-20"
+            >
+              <i class="ri-spotify-fill text-secondary"></i>
+            </div>
+          </div>
+
+          <div class="flex justify-center items-center gap-2">
+            <span class="font-dancing-script text-gray-500"
+              >Background Music:</span
+            >
+            <label class="switch">
+              <input type="checkbox" id="music-toggle" />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <p class="font-dancing-script text-gray-500 mt-8">
+            Created with ❤️ | July 1, 2025
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script id="floating-hearts-script">
+      document.addEventListener("DOMContentLoaded", () => {
+        const canvas = document.getElementById("heartCanvas");
+        const ctx = canvas.getContext("2d");
+        const particles = [];
+        const glowParticles = [];
+
+        let heartPoints = [];
+
+        function resizeCanvas() {
+          const rect = canvas.parentElement.getBoundingClientRect();
+          canvas.width = rect.width;
+          canvas.height = rect.height;
+        }
+
+        function generateHeartOutlinePoints(
+          centerX,
+          centerY,
+          size,
+          density = 2000
+        ) {
+          const points = [];
+          for (let i = 0; i < density; i++) {
+            const t = (Math.PI * 2 * i) / density;
+            const x = size * 16 * Math.pow(Math.sin(t), 3);
+            const y =
+              -size *
+              (13 * Math.cos(t) -
+                5 * Math.cos(2 * t) -
+                2 * Math.cos(3 * t) -
+                Math.cos(4 * t));
+            points.push({ x: centerX + x, y: centerY + y });
+          }
+          return points;
+        }
+
+        class Particle {
+          constructor(startX, startY, target) {
+            this.origin = { x: startX, y: startY };
+            this.x = startX;
+            this.y = startY;
+            this.target = target;
+            this.phase = "fly"; // fly -> hold -> fade -> reset
+            this.timer = 0;
+            this.size = Math.random() * 1 + 0.3;
+            this.opacity = 1;
+            this.setSpeed();
+          }
+
+          setSpeed() {
+            const dx = this.target.x - this.x;
+            const dy = this.target.y - this.y;
+            const len = Math.sqrt(dx * dx + dy * dy) || 1;
+            const speed = Math.random() * 0.7 + 0.2;
+            this.speedX = (dx / len) * speed;
+            this.speedY = (dy / len) * speed;
+          }
+
+          update() {
+            if (this.phase === "fly") {
+              const dx = this.target.x - this.x;
+              const dy = this.target.y - this.y;
+              if (Math.sqrt(dx * dx + dy * dy) < 1.5) {
+                this.phase = "hold";
+                this.timer = 0;
+              } else {
+                this.x += this.speedX;
+                this.y += this.speedY;
+              }
+            } else if (this.phase === "hold") {
+              this.timer++;
+              if (this.timer > 180) {
+                // 3s at ~60fps
+                this.phase = "fade";
+                this.timer = 0;
+              }
+            } else if (this.phase === "fade") {
+              this.opacity -= 0.02;
+              if (this.opacity <= 0) {
+                this.reset();
+              }
+            }
+          }
+
+          reset() {
+            this.x = this.origin.x;
+            this.y = this.origin.y;
+            this.opacity = 1;
+            this.phase = "fly";
+            this.setSpeed();
+          }
+
+          draw() {
+            ctx.fillStyle = `rgba(255, 0, 0, ${this.opacity})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+
+        function drawCenterHeart(x, y, size) {
+          ctx.fillStyle = "#000";
+          ctx.beginPath();
+          for (let angle = 0; angle <= Math.PI * 2; angle += 0.01) {
+            const nx = size * 16 * Math.pow(Math.sin(angle), 3);
+            const ny =
+              -size *
+              (13 * Math.cos(angle) -
+                5 * Math.cos(2 * angle) -
+                2 * Math.cos(3 * angle) -
+                Math.cos(4 * angle));
+            if (angle === 0) {
+              ctx.moveTo(x + nx, y + ny);
+            } else {
+              ctx.lineTo(x + nx, y + ny);
+            }
+          }
+          ctx.closePath();
+          ctx.fill();
+        }
+
+        function initParticles() {
+          particles.length = 0;
+          const centerX = canvas.width / 2;
+          const centerY = canvas.height / 2;
+          const heartSize = Math.min(canvas.width, canvas.height) * 0.02;
+          heartPoints = generateHeartOutlinePoints(
+            centerX,
+            centerY,
+            heartSize,
+            2000
+          );
+
+          glowParticles.length = 0;
+          for (let i = 0; i < 2000; i++) {
+            const pt =
+              heartPoints[Math.floor(Math.random() * heartPoints.length)];
+            const angle = Math.random() * 2 * Math.PI;
+            const radius = Math.random() * 2 + 1; // bắt đầu gần viền
+
+            glowParticles.push({
+              originX: pt.x,
+              originY: pt.y,
+              angle: angle,
+              radius: radius,
+              size: Math.random() * 0.6 + 0.4, // hạt nhỏ mịn (0.4–1.0px)
+              baseOpacity: Math.random() * 0.4 + 0.4, // rõ hơn (0.4–0.8)
+              phase: Math.random() * Math.PI * 2,
+              speed: Math.random() * 0.15 + 0.05, // tốc độ lan
+            });
+          }
+
+          heartPoints.forEach((pt) => {
+            particles.push(new Particle(centerX, centerY, pt));
+          });
+        }
+        function drawGlowParticles() {
+          glowParticles.forEach((p) => {
+            // Di chuyển bán kính ra xa dần
+            p.radius += p.speed;
+            if (p.radius > 20) p.radius = Math.random() * 2 + 1; // reset lại gần
+
+            const x = p.originX + Math.cos(p.angle) * p.radius;
+            const y = p.originY + Math.sin(p.angle) * p.radius;
+
+            // Hiệu ứng nhấp nháy
+            const flicker = 0.7 + Math.sin(Date.now() * 0.005 + p.phase) * 0.3;
+
+            ctx.fillStyle = `rgba(255, 80, 120, ${p.baseOpacity * flicker})`;
+            ctx.beginPath();
+            ctx.arc(x, y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+          });
+        }
+
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          const centerX = canvas.width / 2;
+          const centerY = canvas.height / 2;
+          const heartSize = Math.min(canvas.width, canvas.height) * 0.02;
+
+          // Hiệu ứng co giãn nhẹ (tim đập)
+          const time = Date.now() * 0.004;
+          const pulse = 1 + Math.sin(time) * 0.1;
+
+          drawCenterHeart(centerX, centerY, heartSize * 2 * pulse);
+
+          particles.forEach((p) => {
+            p.update();
+            p.draw();
+          });
+
+          drawGlowParticles();
+
+          requestAnimationFrame(animate);
+        }
+
+        function setupHeart() {
+          resizeCanvas();
+          initParticles();
+        }
+
+        setupHeart();
+        animate();
+        window.addEventListener("resize", setupHeart);
+
+        // Time Counter
+        const startDate = new Date("2024-07-11T00:00:00Z");
+        function updateLoveTime() {
+          const now = new Date();
+          const diff = now - startDate;
+          const totalSeconds = Math.floor(diff / 1000);
+          const days = Math.floor(totalSeconds / 86400);
+          const years = Math.floor(days / 365);
+          const months = Math.floor(days / 30.4375);
+          const weeks = Math.floor(days / 7);
+          const hours = Math.floor((totalSeconds % 86400) / 3600);
+          const minutes = Math.floor((totalSeconds % 3600) / 60);
+          const seconds = totalSeconds % 60;
+
+          document.getElementById("days").textContent = days;
+          document.getElementById("years").textContent = years;
+          document.getElementById("months").textContent = months;
+          document.getElementById("weeks").textContent = weeks;
+          document.getElementById("hours").textContent = hours;
+          document.getElementById("minutes").textContent = minutes;
+          document.getElementById("seconds").textContent = seconds;
+        }
+
+        updateLoveTime();
+        setInterval(updateLoveTime, 1000);
+      });
+    </script>
+
+    <script id="timeline-animation-script">
+      document.addEventListener("DOMContentLoaded", function () {
+        const timelineItems = document.querySelectorAll(".timeline-item");
+
+        function checkVisibility() {
+          timelineItems.forEach((item) => {
+            const rect = item.getBoundingClientRect();
+            const isVisible = rect.top <= window.innerHeight * 0.8;
+
+            if (isVisible) {
+              item.classList.add("visible");
+            }
+          });
+        }
+
+        // Check on load
+        checkVisibility();
+
+        // Check on scroll
+        window.addEventListener("scroll", checkVisibility);
+      });
+    </script>
+
+    <script id="typewriter-effect-script">
+      document.addEventListener("DOMContentLoaded", function () {
+        const letterContent = document.querySelector(".letter-content");
+
+        setTimeout(() => {
+          letterContent.style.opacity = "1";
+          letterContent.style.transition = "opacity 1s ease";
+        }, 3500);
+      });
+    </script>
+
+    <script id="gift-box-script">
+      document.addEventListener("DOMContentLoaded", function () {
+        const giftBox = document.getElementById("gift-box");
+        const reasonItems = document.querySelectorAll(".reason-item");
+
+        giftBox.addEventListener("click", function () {
+          if (!this.classList.contains("open")) {
+            this.classList.add("open");
+
+            // Animate reasons list
+            reasonItems.forEach((item, index) => {
+              setTimeout(() => {
+                item.style.opacity = "1";
+                item.style.transform = "translateY(0)";
+              }, 500 + index * 200);
+            });
+          }
+        });
+      });
+    </script>
+
+    <script id="music-control-script">
+      document.addEventListener("DOMContentLoaded", function () {
+        const audio = document.getElementById("background-music");
+        const playButton = document.getElementById("play-music");
+        const volumeControl = document.getElementById("volume-control");
+        const musicToggle = document.getElementById("music-toggle");
+
+        // Set initial volume
+        audio.volume = 0.5;
+
+        playButton.addEventListener("click", function () {
+          if (audio.paused) {
+            audio.play();
+            playButton.innerHTML =
+              '<i class="ri-pause-fill"></i><span>Pause Music</span>';
+            musicToggle.checked = true;
+          } else {
+            audio.pause();
+            playButton.innerHTML =
+              '<i class="ri-play-fill"></i><span>Play Music</span>';
+            musicToggle.checked = false;
+          }
+        });
+
+        volumeControl.addEventListener("input", function () {
+          audio.volume = this.value / 100;
+        });
+
+        musicToggle.addEventListener("change", function () {
+          if (this.checked) {
+            audio.play();
+            playButton.innerHTML =
+              '<i class="ri-pause-fill"></i><span>Pause Music</span>';
+          } else {
+            audio.pause();
+            playButton.innerHTML =
+              '<i class="ri-play-fill"></i><span>Play Music</span>';
+          }
+        });
+      });
+    </script>
+
+    <script id="smooth-scroll-script">
+      document.addEventListener("DOMContentLoaded", function () {
+        const navLinks = document.querySelectorAll("nav a");
+
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute("href");
+            const targetElement = document.querySelector(targetId);
+
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: "smooth",
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

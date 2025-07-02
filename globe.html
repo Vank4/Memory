@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Memory Globe</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        overflow: hidden;
+        background: #000;
+      }
+
+      canvas {
+        display: block;
+      }
+      #loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #000;
+        color: white;
+        font-size: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        gap: 10px;
+      }
+
+      .heartbeat {
+        font-size: 50px !important;
+        animation: beat 1s infinite;
+        display: inline-block;
+      }
+
+      @keyframes beat {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        25% {
+          transform: scale(1.2);
+        }
+        50% {
+          transform: scale(1.4);
+        }
+        75% {
+          transform: scale(1.2);
+        }
+      }
+      #musicIcon {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        font-size: 40px;
+        animation: pulse 1s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.4);
+        }
+      }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div
+      id="loveText"
+      style="
+        position: absolute;
+        top: 20px;
+        left: 30px;
+        color: white;
+        font-family: 'Dancing Script', cursive;
+        font-size: 28px;
+        z-index: 10;
+        pointer-events: none;
+      "
+    ></div>
+
+    <div id="loader">
+      <span>Đang tải kỉ niệm...</span>
+      <span class="heartbeat">💓</span>
+    </div>
+    <a href="/memory.html"><div id="musicIcon">💖</div></a>
+
+    <audio id="bgMusic" autoplay loop muted>
+      <source src="music/2.mp3" type="audio/mpeg" />
+    </audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js"></script>
+    <script>
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setPixelRatio(window.devicePixelRatio); // Thêm dòng này
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      // 🌍 Quả cầu trung tâm
+      const globeGeo = new THREE.SphereGeometry(6, 32, 32);
+      const globeMat = new THREE.MeshBasicMaterial({
+        color: 0xffaaff,
+        wireframe: true,
+      });
+      const globe = new THREE.Mesh(globeGeo, globeMat);
+      scene.add(globe);
+
+      // 🖼 Ảnh kỷ niệm
+      const rows = 2;
+      const imagesPerRow = 32;
+      const totalImages = rows * imagesPerRow;
+      let loadedCount = 0;
+
+      const radius = 10;
+      const verticalOffsets = [0.4, -0.4];
+      const loader = new THREE.TextureLoader();
+      function tryLoadImage(index, x, y, z) {
+        const baseName = `images/${index + 1}`;
+        loader.load(
+          `${baseName}.jpg`,
+          (texture) => handleLoaded(texture, x, y, z),
+          undefined,
+          () => {
+            // Nếu .jpg lỗi thì thử .JPG
+            loader.load(
+              `${baseName}.JPG`,
+              (texture) => handleLoaded(texture, x, y, z),
+              undefined,
+              handleError
+            );
+          }
+        );
+      }
+
+      function handleLoaded(texture, x, y, z) {
+        texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        const imgWidth = texture.image.width;
+        const imgHeight = texture.image.height;
+        const maxDimension = 8;
+        let displayWidth, displayHeight;
+
+        if (imgWidth > imgHeight) {
+          displayWidth = maxDimension;
+          displayHeight = (imgHeight / imgWidth) * maxDimension;
+        } else {
+          displayHeight = maxDimension;
+          displayWidth = (imgWidth / imgHeight) * maxDimension;
+        }
+
+        const planeGeo = new THREE.PlaneGeometry(
+          displayWidth / 10,
+          displayHeight / 10
+        );
+
+        const planeMat = new THREE.MeshBasicMaterial({
+          map: texture,
+          side: THREE.DoubleSide,
+          transparent: true,
+          color: new THREE.Color(0.7, 0.7, 0.7),
+        });
+
+        const photo = new THREE.Mesh(planeGeo, planeMat);
+        photo.position.set(x, y, z);
+        photo.lookAt(0, 0, 0);
+        scene.add(photo);
+
+        loadedCount++;
+        if (loadedCount === totalImages) {
+          document.getElementById("loader").style.display = "none";
+        }
+      }
+
+      function handleError() {
+        loadedCount++;
+        if (loadedCount === totalImages) {
+          document.getElementById("loader").style.display = "none";
+        }
+      }
+
+      for (let row = 0; row < rows; row++) {
+        const angleStep = (2 * Math.PI) / imagesPerRow;
+        const angleOffset = row === 1 ? angleStep / 2 : 0;
+
+        for (let i = 0; i < imagesPerRow; i++) {
+          const angle = i * angleStep + angleOffset;
+          const x = radius * Math.cos(angle);
+          const y = verticalOffsets[row];
+          const z = radius * Math.sin(angle);
+          const imgIndex = row * imagesPerRow + i;
+
+          tryLoadImage(imgIndex, x, y, z);
+        }
+      }
+
+      // 💬 Tạo sprite text xinh
+      function createTextSprite(message, color = "#fff") {
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+        const fontSize = 24;
+        context.font = `700 ${fontSize}px 'Dancing Script'`;
+        const textWidth = context.measureText(message).width;
+        canvas.width = textWidth + 20;
+        canvas.height = fontSize + 20;
+
+        context.font = `700 ${fontSize}px 'Dancing Script'`;
+        context.fillStyle = color;
+        context.textBaseline = "middle";
+        context.fillText(message, 10, canvas.height / 2);
+
+        const texture = new THREE.CanvasTexture(canvas);
+        const spriteMaterial = new THREE.SpriteMaterial({
+          map: texture,
+          transparent: true,
+        });
+        const sprite = new THREE.Sprite(spriteMaterial);
+        sprite.scale.set(canvas.width / 100, canvas.height / 100, 1);
+        return sprite;
+      }
+
+      // ❤️ Danh sách câu chữ tình cảm
+      const loveMessages = [
+        "Yêu anh nhiều lắm 💖",
+        "Mãi bên nhau nhé 💑",
+        "Ngọt ngào như lần đầu 🍓",
+        "Nắm tay em mãi mãi 🤝",
+        "Anh là thanh xuân của em 🌸",
+        "Cảm ơn vì đã luôn ở bên 💌",
+        "Mỗi ngày có anh là một ngày đẹp 🌈",
+        "Hạnh phúc là có anh 😘",
+        "Tình yêu của em 💞",
+        "Luôn luôn là anh 💓",
+        "Anh là nhà 🏡",
+        "Yêu anh vô điều kiện 🧸",
+        "Mỗi khoảnh khắc là kỷ niệm ✨",
+        "Chỉ cần có anh thôi ☀️",
+        "Cùng nhau đi hết cuộc đời nhé 🥰",
+        "Bình yên là khi có anh bên cạnh 🌻",
+        "Anh là tia nắng trong đời em 🌞",
+        "Tình yêu làm thế giới rực rỡ hơn 🌍",
+        "Trái tim này là của anh 💘",
+        "Gửi ngàn nụ hôn đến anh 💋",
+        "Anh là định mệnh của em 🌠",
+        "Thế giới này chỉ cần có anh là đủ 🌎",
+        "Mỗi ánh nhìn của anh đều làm tim em rung động 💗",
+        "Anh là mảnh ghép hoàn hảo của đời em 🧩",
+        "Bên anh, mọi buồn phiền tan biến ☁️",
+        "Anh là bầu trời, em là vì sao 🌌",
+        "Chúng ta là duyên trời định 🔗",
+        "Em yêu anh đến vô tận ♾️",
+        "Tình yêu em dành cho anh là mãi mãi 🔥",
+        "Anh làm tim em tan chảy mỗi ngày 🍯",
+        "Dù bao mùa trôi qua, vẫn chỉ có anh 🌦️",
+        "Anh là lý do em mỉm cười mỗi sáng 🌞",
+        "Tình yêu là khi em có anh bên cạnh 💓",
+        "Em nhớ anh mỗi giây phút trôi qua ⏳",
+        "Em sẽ mãi bên anh, dẫu thời gian đổi thay ⏰",
+        "Anh là ngọn lửa sưởi ấm trái tim em 🔥",
+        "Chỉ cần có anh, em có tất cả 💯",
+        "Yêu anh là điều ngọt ngào nhất em từng biết 🍬",
+        "Anh là nhịp đập trong trái tim em 💓",
+        "Cùng nhau viết nên chuyện tình cổ tích ✨",
+        "Anh là ngôi sao sáng nhất bầu trời đêm 🌟",
+        "Mỗi ngày với anh là một phép màu 🎇",
+        "Em chẳng cần gì khác ngoài anh 💕",
+        "Anh là lý do em tin vào tình yêu 💖",
+        "Yêu anh là điều đúng đắn nhất đời em ✔️",
+        "Bên anh, em thấy thế giới thật đẹp 🌍",
+        "Anh là người duy nhất trong tim em ❤️",
+        "Chúng ta sinh ra là để dành cho nhau 🌙",
+        "Mỗi kỷ niệm với anh là báu vật vô giá 💎",
+        "Tình yêu của em dành cho anh không có giới hạn 🚀",
+        "Dù đi đâu, em vẫn luôn hướng về anh 🧭",
+        "Anh là tất cả thế giới của em 🌏",
+        "Anh làm cuộc sống em rực rỡ sắc màu 🌈",
+        "Em thuộc về anh, mãi mãi 🥺",
+        "Chỉ cần được ở bên anh là đủ hạnh phúc 🥰",
+        "Từng hơi thở em đều nhớ anh 💨",
+        "Anh là bài hát ru trong trái tim em 🎶",
+        "Em chẳng thể ngừng nghĩ về anh 🧠",
+        "Mỗi cái ôm của anh là nơi an toàn nhất 🤗",
+        "Trái tim em đập theo nhịp bước chân anh 💓",
+        "Anh là nơi em muốn về sau mỗi mỏi mệt 🏠",
+        "Anh là vĩnh cửu trong đời em ⛅",
+        "Thế giới này đẹp hơn khi có anh bên cạnh 💫",
+        "Em say anh hơn cả rượu 🍷",
+        "Tình yêu em dành cho anh như dòng chảy không ngừng 🌊",
+        "Chạm vào anh là chạm vào bình yên 🍃",
+        "Anh là ước mơ thành hiện thực của em 💭",
+        "Anh là ngọn hải đăng soi sáng đời em 🌠",
+        "Tình yêu của chúng ta là mãi mãi ⏳",
+        "Anh là lý do để em cố gắng mỗi ngày 💪",
+        "Anh là người em mong thức dậy cùng mỗi sáng 🌞",
+        "Mỗi khoảnh khắc bên anh là món quà 🎁",
+        "Trái tim em gọi tên anh mỗi đêm 🌙",
+        "Yêu anh hơn cả ngôn từ có thể nói 💬",
+        "Dù có chuyện gì xảy ra, em vẫn chọn anh ❤️",
+        "Anh là điều ngọt ngào nhất cuộc sống này 🍰",
+        "Em tìm thấy chính mình trong mắt anh 👁️",
+        "Chẳng ai khiến em cười như anh 😊",
+        "Anh là tình yêu mà em không bao giờ muốn mất 💔",
+        "Em sẽ bên anh, dù cả thế giới quay lưng 🛡️",
+        "Anh là nơi bình yên cuối cùng của em 🛏️",
+        "Em muốn viết tên anh lên bầu trời 💌",
+        "Anh là mùa xuân trong lòng em 🌼",
+        "Yêu anh là thói quen của tim em ⏱️",
+        "Trái tim em không biết cách ngừng yêu anh 🫀",
+        "Mỗi ánh nhìn của anh đều là phép màu ✨",
+        "Em không thể tưởng tượng cuộc sống thiếu anh ❌",
+        "Anh là bài thơ đẹp nhất em từng viết ✍️",
+        "Bên anh, em cảm thấy thật sống động 🔥",
+        "Chúng ta là định mệnh của nhau 💞",
+        "Yêu anh là hành trình em chẳng bao giờ mỏi mệt 🚶‍♀️",
+        "Trái tim em luôn hướng về anh như la bàn 🌐",
+        "Em sẽ là nơi bình yên của anh mỗi khi giông bão qua 💒",
+        "Tình yêu của em dành cho anh là bất diệt 🪷",
+      ];
+
+      // 🎀 Rải đều các câu xung quanh quả cầu, độ cao ngẫu nhiên
+      function addFloatingText(messages, count = 100) {
+        const placedPositions = [];
+
+        for (let i = 0; i < count; i++) {
+          const msg = messages[i % messages.length];
+          let position;
+          let attempts = 0;
+
+          do {
+            // 👉 Phân bố ngẫu nhiên gần quả cầu
+            const u = Math.random();
+            const v = Math.random();
+            const theta = 2 * Math.PI * u;
+            const phi = Math.acos(2 * v - 1);
+            const r = 11 + Math.random(); // cách mặt cầu khoảng 1 đơn vị
+
+            const x = r * Math.sin(phi) * Math.cos(theta);
+            const y = r * Math.cos(phi);
+            const z = r * Math.sin(phi) * Math.sin(theta);
+
+            position = new THREE.Vector3(x, y, z);
+            attempts++;
+
+            // Kiểm tra không bị quá gần điểm đã có
+          } while (
+            placedPositions.some((p) => p.distanceTo(position) < 1.5) &&
+            attempts < 100
+          );
+
+          placedPositions.push(position);
+
+          const color = `hsl(${Math.random() * 360}, 100%, 75%)`;
+          const sprite = createTextSprite(msg, color);
+          sprite.position.copy(position);
+          sprite.lookAt(0, 0, 0);
+          scene.add(sprite);
+        }
+      }
+
+      addFloatingText(loveMessages, 30); // hiển thị 30 câu ngẫu nhiên
+
+      // 🎥 Camera setup
+      camera.position.z = 15;
+
+      function animate() {
+        requestAnimationFrame(animate);
+        globe.rotation.y += 0.003;
+        scene.rotation.y += 0.001;
+        renderer.render(scene, camera);
+      }
+
+      animate();
+
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      // 🌸 Hiệu ứng gõ từng chữ ở góc trên trái
+      const textDiv = document.getElementById("loveText");
+      let currentMsgIndex = 0;
+      let charIndex = 0;
+      let typingInterval;
+      let delayAfterFinish = 2000;
+
+      let isDeleting = false;
+
+      function typeNextCharacter() {
+        const currentMessage = loveMessages[currentMsgIndex];
+
+        if (!isDeleting) {
+          // Gõ từng chữ, mỗi chữ một màu
+          let html = "";
+          for (let i = 0; i < charIndex; i++) {
+            const hue = (i * 40 + currentMsgIndex * 20) % 360;
+            html += `<span style="color: hsl(${hue}, 100%, 75%)">${currentMessage[i]}</span>`;
+          }
+          html += "<span style='color: white'>|</span>";
+          textDiv.innerHTML = html;
+          charIndex++;
+          if (charIndex > currentMessage.length) {
+            isDeleting = true;
+            clearInterval(typingInterval);
+            setTimeout(() => {
+              typingInterval = setInterval(typeNextCharacter, 50); // xóa nhanh hơn
+            }, 1500);
+          }
+        } else {
+          // Xóa từng chữ
+          if (charIndex >= 0) {
+            textDiv.textContent = currentMessage.slice(0, charIndex) + "|";
+            charIndex--;
+          } else {
+            // Khi đã xóa xong thì xóa cả chữ & dấu |
+            textDiv.textContent = "";
+            isDeleting = false;
+            currentMsgIndex = (currentMsgIndex + 1) % loveMessages.length;
+            clearInterval(typingInterval);
+            setTimeout(() => {
+              charIndex = 0;
+              typingInterval = setInterval(typeNextCharacter, 100); // gõ lại chậm
+            }, 300);
+          }
+        }
+      }
+
+      typingInterval = setInterval(typeNextCharacter, 100);
+      window.addEventListener("DOMContentLoaded", () => {
+        const audio = document.getElementById("bgMusic");
+        audio.muted = false;
+        audio.play().catch((e) => console.warn("Không thể phát nhạc:", e));
+      });
+    </script>
+  </body>
+</html>
