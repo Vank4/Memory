@@ -121,7 +121,62 @@
         wireframe: true,
       });
       const globe = new THREE.Mesh(globeGeo, globeMat);
+
+      // 🌟 Tạo các ngôi sao lấp lánh
+      // Trước đây nằm trong createStars:
+      let starMat;
+
+      function createStars(count = 500) {
+        const starGeo = new THREE.BufferGeometry();
+        const starPositions = [];
+
+        for (let i = 0; i < count; i++) {
+          const x = (Math.random() - 0.5) * 200;
+          const y = (Math.random() - 0.5) * 200;
+          const z = (Math.random() - 0.5) * 200;
+          starPositions.push(x, y, z);
+        }
+
+        starGeo.setAttribute(
+          "position",
+          new THREE.Float32BufferAttribute(starPositions, 3)
+        );
+
+        // 🌟 Texture hình thoi nhỏ
+        const canvas = document.createElement("canvas");
+        canvas.width = 64;
+        canvas.height = 64;
+        const ctx = canvas.getContext("2d");
+
+        ctx.clearRect(0, 0, 64, 64);
+        ctx.fillStyle = "white";
+        ctx.beginPath();
+        ctx.moveTo(32, 0);
+        ctx.lineTo(64, 32);
+        ctx.lineTo(32, 64);
+        ctx.lineTo(0, 32);
+        ctx.closePath();
+        ctx.fill();
+
+        const diamondTexture = new THREE.CanvasTexture(canvas);
+
+        // ✨ Vật liệu sáng chói và nhỏ
+        starMat = new THREE.PointsMaterial({
+          size: 0.6, // 👉 Nhỏ lại nha
+          map: diamondTexture,
+          transparent: true,
+          opacity: 1,
+          depthWrite: false,
+          blending: THREE.AdditiveBlending, // giúp sáng rực
+          color: 0xffffff,
+        });
+
+        const stars = new THREE.Points(starGeo, starMat);
+        scene.add(stars);
+      }
+
       scene.add(globe);
+      createStars(); // ⭐ Gọi hàm để tạo ngôi sao
 
       // 🖼 Ảnh kỷ niệm
       const rows = 2;
@@ -382,6 +437,11 @@
         requestAnimationFrame(animate);
         globe.rotation.y += 0.003;
         scene.rotation.y += 0.001;
+        if (starMat) {
+          const time = Date.now() * 0.005;
+          starMat.opacity = 0.8 + 0.2 * Math.sin(time); // dao động nhẹ giữa 0.8-1
+        }
+
         renderer.render(scene, camera);
       }
 
