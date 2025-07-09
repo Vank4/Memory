@@ -112,8 +112,8 @@
           <p
             class="font-dancing-script text-2xl md:text-3xl text-white max-w-3xl mx-auto"
           >
-            "Một năm trước, anh bước vào cuộc đời em, và từ đó mọi thứ trở nên
-            tuyệt vời hơn. Cảm ơn anh vì đã là tất cả đối với em." 💕
+            "Một năm trước, chúng ta bước vào cuộc đời nhau, và từ đó mọi thứ
+            trở nên tuyệt vời hơn. Cảm ơn em vì đã là tất cả đối với anh." 💕
           </p>
           <div class="mt-12">
             <button
@@ -140,7 +140,7 @@
             class="font-dancing-script text-xl text-gray-700"
             style="color: floralwhite"
           >
-            Mỗi khoảnh khắc bên anh đều là một kho báu
+            Mỗi khoảnh khắc bên nhau đều là một kho báu
           </p>
         </div>
 
@@ -178,10 +178,10 @@
               class="font-dancing-script text-xl text-gray-700 mb-6"
               style="color: floralwhite"
             >
-              Từ buổi hẹn đầu tiên vào ngày 1 tháng 7 năm 2024 đến vô vàn cuộc
+              Từ buổi hẹn đầu tiên vào ngày 11 tháng 7 năm 2024 đến vô vàn cuộc
               phiêu lưu, những tràng cười và khoảnh khắc quý giá mà chúng ta đã
-              chia sẻ cùng nhau. Mỗi ngày đều là một món quà, và em mong chờ cả
-              cuộc đời phía trước với anh.
+              chia sẻ cùng nhau. Mỗi ngày đều là một món quà, chúng ta cùng mong
+              chờ cả cuộc đời phía trước với nhau.
             </p>
             <div
               class="flex flex-wrap gap-4 justify-center md:justify-start"
@@ -215,6 +215,11 @@
                 >
                 <p class="font-dancing-script">Năm</p>
               </div>
+            </div>
+            <div
+              class="flex flex-wrap gap-4 justify-center md:justify-start"
+              style="margin-top: 15px; color: floralwhite"
+            >
               <div class="bg-primary bg-opacity-20 rounded-lg p-4 text-center">
                 <span
                   id="hours"
@@ -274,7 +279,7 @@
                   <h3 class="font-great-vibes text-2xl text-secondary mb-2">
                     Buổi hẹn đầu tiên
                   </h3>
-                  <p class="text-gray-500 mb-2">01/07/2024</p>
+                  <p class="text-gray-500 mb-2">11/07/2024</p>
                   <p class="font-dancing-script text-lg text-gray-700 mb-4">
                     Quán cà phê nhỏ và buổi trò chuyện kéo dài 5 tiếng khiến em
                     tin rằng điều gì đó thật đặc biệt đang bắt đầu.
@@ -553,53 +558,6 @@
       </div>
     </section>
 
-    <!-- Surprise Gift Section -->
-    <section
-      id="surprise"
-      class="py-20 bg-primary bg-opacity-10 relative overflow-hidden"
-    >
-      <div class="container mx-auto px-4">
-        <div class="flex flex-col items-center justify-center">
-          <!-- Avatars & heartbeat container -->
-          <div
-            class="relative flex items-center justify-center w-full max-w-4xl"
-          >
-            <!-- Left Avatar -->
-            <div class="z-10">
-              <img
-                src="/path-to-avatar-left.jpg"
-                alt="Avatar Left"
-                class="w-24 h-24 rounded-full border-4 border-white shadow-lg"
-              />
-            </div>
-
-            <!-- Heartbeat Line & 3D Heart -->
-            <div class="relative flex-1 h-32 flex items-center justify-center">
-              <canvas
-                id="heartbeat-canvas"
-                class="absolute w-full h-full"
-              ></canvas>
-              <canvas
-                id="heart-3d-canvas"
-                width="200"
-                height="200"
-                class="z-20"
-              ></canvas>
-            </div>
-
-            <!-- Right Avatar -->
-            <div class="z-10">
-              <img
-                src="/path-to-avatar-right.jpg"
-                alt="Avatar Right"
-                class="w-24 h-24 rounded-full border-4 border-white shadow-lg"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Footer -->
     <footer class="py-12 bg-white border-t border-primary border-opacity-20">
       <div class="container mx-auto px-4">
@@ -643,6 +601,8 @@
           <p class="font-dancing-script text-gray-500 mt-8">
             Created with ❤️ | July 1, 2025
           </p>
+          <br />
+          <a href="./sincere.html"><div id="musicIcon">💖</div></a>
         </div>
       </div>
     </footer>
@@ -1112,83 +1072,6 @@
 
         setTimeout(typeNextParagraph, 1500); // delay trước khi bắt đầu
       });
-    </script>
-
-    <script id="gift-box-script">
-      // Heartbeat Wave Canvas
-      const heartbeatCanvas = document.getElementById("heartbeat-canvas");
-      const hbCtx = heartbeatCanvas.getContext("2d");
-      function resizeCanvas() {
-        heartbeatCanvas.width = heartbeatCanvas.offsetWidth;
-        heartbeatCanvas.height = heartbeatCanvas.offsetHeight;
-      }
-      resizeCanvas();
-      window.addEventListener("resize", resizeCanvas);
-
-      function drawHeartbeatLine(time) {
-        const ctx = hbCtx;
-        const width = heartbeatCanvas.width;
-        const height = heartbeatCanvas.height;
-        ctx.clearRect(0, 0, width, height);
-
-        ctx.beginPath();
-        ctx.moveTo(0, height / 2);
-
-        const amp = 30;
-        const freq = 0.02;
-        const beatWidth = 150;
-
-        for (let x = 0; x < width; x++) {
-          const progress = (x + time * 0.5) % beatWidth;
-          let y = height / 2;
-          if (progress < 10) y -= amp * 0.1 * progress; // rising
-          else if (progress < 20) y -= amp * (1 - (progress - 10) / 10); // peak
-          else if (progress < 80) y += Math.sin((x + time * 0.3) * freq) * 5; // subtle wave
-          ctx.lineTo(x, y);
-        }
-
-        ctx.strokeStyle = "#ff6b81";
-        ctx.lineWidth = 2;
-        ctx.stroke();
-
-        requestAnimationFrame(drawHeartbeatLine);
-      }
-      requestAnimationFrame(drawHeartbeatLine);
-
-      // 3D Heart Beat from Particles
-      const heartCanvas = document.getElementById("heart-3d-canvas");
-      const heartCtx = heartCanvas.getContext("2d");
-      const w = heartCanvas.width;
-      const h = heartCanvas.height;
-
-      let t = 0;
-      function drawHeartBeat() {
-        heartCtx.clearRect(0, 0, w, h);
-
-        const particles = 200;
-        for (let i = 0; i < particles; i++) {
-          const angle = Math.PI * 2 * (i / particles);
-          const x = 16 * Math.pow(Math.sin(angle), 3);
-          const y =
-            13 * Math.cos(angle) -
-            5 * Math.cos(2 * angle) -
-            2 * Math.cos(3 * angle) -
-            Math.cos(4 * angle);
-
-          const scale = 8 + Math.sin(t) * 1.2;
-          const px = w / 2 + x * scale;
-          const py = h / 2 - y * scale;
-
-          heartCtx.beginPath();
-          heartCtx.arc(px, py, 2, 0, 2 * Math.PI);
-          heartCtx.fillStyle = "#ff6b81";
-          heartCtx.fill();
-        }
-
-        t += 0.05;
-        requestAnimationFrame(drawHeartBeat);
-      }
-      drawHeartBeat();
     </script>
 
     <script id="music-control-script">
