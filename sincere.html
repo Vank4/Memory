@@ -64,8 +64,8 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body style="background-color: black">
-    <audio id="bg-music" autoplay loop>
-      <source src="/Memory/music/love-theme.mp3" type="audio/mpeg" />
+    <audio id="bg-music" loop>
+      <source src="/Memory/music/4.mp3" type="audio/mpeg" />
       Your browser does not support the audio element.
     </audio>
 
@@ -143,7 +143,18 @@
         </div>
       </div>
     </section>
-
+    <!-- Nút bật/tắt nhạc -->
+    <div
+      class="fixed top-4 right-4 z-[100] flex items-center gap-2 bg-white bg-opacity-80 rounded-full shadow-md px-3 py-1 backdrop-blur-sm"
+    >
+      <button
+        id="music-toggle"
+        class="text-secondary text-xl focus:outline-none hover:scale-110 transition"
+        title="Bật/Tắt nhạc"
+      >
+        <i class="ri-volume-up-fill" id="music-icon"></i>
+      </button>
+    </div>
     <canvas
       id="memory-heart-canvas"
       style="
@@ -396,24 +407,7 @@
         document.getElementById("days-count").textContent = diffDays;
       });
     </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        setInterval(() => {
-          const heartCanvas = document.getElementById("heart-3d-canvas");
-          const rect = heartCanvas.getBoundingClientRect();
-          confetti({
-            particleCount: 60,
-            spread: 100,
-            origin: {
-              x: (rect.left + rect.width / 2) / window.innerWidth,
-              y: (rect.top + rect.height / 2) / window.innerHeight,
-            },
-            colors: ["#ff6b81", "#ffc0cb", "#fff0f5"],
-            scalar: 1.2,
-          });
-        }, 5000);
-      });
-    </script>
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const starCanvas = document.getElementById("universe-stars");
@@ -461,6 +455,37 @@
         }
 
         drawStars();
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const music = document.getElementById("bg-music");
+        const toggleBtn = document.getElementById("music-toggle");
+        const icon = document.getElementById("music-icon");
+
+        // Tự động phát nhạc nếu chuyển từ trang khác
+        if (document.referrer && !music.played.length) {
+          setTimeout(() => {
+            music
+              .play()
+              .then(() => {
+                icon.className = "ri-volume-up-fill";
+              })
+              .catch(() => {
+                icon.className = "ri-volume-mute-fill";
+              });
+          }, 500);
+        }
+
+        toggleBtn.addEventListener("click", () => {
+          if (music.paused) {
+            music.play();
+            icon.className = "ri-volume-up-fill";
+          } else {
+            music.pause();
+            icon.className = "ri-volume-mute-fill";
+          }
+        });
       });
     </script>
   </body>
